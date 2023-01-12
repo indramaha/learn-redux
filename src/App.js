@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import { useSelector } from 'react-redux';
 import './App.css';
+import { useState } from 'react';
+import Result from './Components/Result';
 
 function App() {
+  const [num, setNum] = useState(0)
+
+  const handlePlus = () => {
+    setNum(num+1)
+  }
+
+  const handleMinus =() => {
+    setNum(num -1)
+  }
+
+  const handleColorMinus = num < 0
+
+  const {number} = useSelector(numberState => numberState)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <div className='btn-bg'>
+          <div className='button-bg'>
+            <button onClick={handleMinus}>-</button>
+          </div>
+          <div>
+            <h1 className={handleColorMinus ? "red-result" : "normal"}>{num}</h1>
+          </div>
+          <div className='button-bg'>
+            <button onClick={handlePlus}>+</button>
+          </div>
+        </div>
+        <div>
+          <Result />
+        </div>
+      </div>
     </div>
   );
 }
