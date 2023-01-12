@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import './App.css';
 import { useState } from 'react';
 import Result from './Components/Result';
@@ -15,8 +14,6 @@ function App() {
   }
 
   const handleColorMinus = num < 0
-
-  const {number} = useSelector(numberState => numberState)
 
   return (
     <div className="App">
