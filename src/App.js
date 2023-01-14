@@ -1,19 +1,32 @@
 import './App.css';
-import { useState } from 'react';
-import Result from './Components/Result';
+// import Result from './Components/Result';
+import { useDispatch, useSelector } from 'react-redux';
 
-function App() {
-  const [num, setNum] = useState(0)
+function App() { 
+  const state = useSelector((rootReducer) => rootReducer)
+  const dispatch = useDispatch()
 
   const handlePlus = () => {
-    setNum(num+1)
+    let total = state.counter.number + 1
+
+    dispatch({
+      type: "TAMBAH",
+      payload: total
+    })
   }
 
-  const handleMinus =() => {
-    setNum(num -1)
+  const handleMinus = () => {
+    let total = state.counter.number - 1
+
+    dispatch({
+      type: "KURANG",
+      payload: total,
+    })
   }
 
-  const handleColorMinus = num < 0
+  // console.log(state)
+
+  // const {isLogin} = useSelector((rootReducer) =>rootReducer.login )
 
   return (
     <div className="App">
@@ -23,14 +36,22 @@ function App() {
             <button onClick={handleMinus}>-</button>
           </div>
           <div>
-            <h1 className={handleColorMinus ? "red-result" : "normal"}>{num}</h1>
+            <h1 >{state.counter.number}</h1>
           </div>
           <div className='button-bg'>
             <button onClick={handlePlus}>+</button>
           </div>
         </div>
         <div>
-          <Result />
+          {(() => {
+            if (state.login.isLogin === true) {
+              return(
+                <div>
+                  <h1>Selamat, anda telah login!</h1>
+                </div>
+              )
+            }
+          })()}
         </div>
       </div>
     </div>
